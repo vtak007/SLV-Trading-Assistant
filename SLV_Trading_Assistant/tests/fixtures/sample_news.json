@@ -1,0 +1,58 @@
+[
+  {
+    "headline": "Silver rises 2% as dollar weakens and safe-haven demand surges",
+    "source": "kitco",
+    "url": "https://www.kitco.com/news/1",
+    "published_at": "2026-05-27T12:00:00+00:00",
+    "classification": "bullish"
+  },
+  {
+    "headline": "Gold rally continues; precious metals gain on dovish Fed comments",
+    "source": "reuters_business",
+    "url": "https://www.reuters.com/news/1",
+    "published_at": "2026-05-27T10:30:00+00:00",
+    "classification": "bullish"
+  },
+  {
+    "headline": "Silver falls as dollar strengthens after strong jobs report",
+    "source": "marketwatch",
+    "url": "https://www.marketwatch.com/news/1",
+    "published_at": "2026-05-27T09:00:00+00:00",
+    "classification": "bearish"
+  },
+  {
+    "headline": "Fed signals hawkish stance; rate hikes back on the table",
+    "source": "fed_reserve",
+    "url": "https://www.federalreserve.gov/news/1",
+    "published_at": "2026-05-26T18:00:00+00:00",
+    "classification": "bearish"
+  },
+  {
+    "headline": "CPI data due Wednesday; analysts expect inflation to cool",
+    "source": "marketwatch",
+    "url": "https://www.marketwatch.com/news/2",
+    "published_at": "2026-05-26T14:00:00+00:00",
+    "classification": "neutral"
+  },
+  {
+    "headline": "Gold-silver ratio drops as silver outperforms amid supply deficit",
+    "source": "kitco",
+    "url": "https://www.kitco.com/news/2",
+    "published_at": "2026-05-25T20:00:00+00:00",
+    "classification": "bullish"
+  },
+  {
+    "headline": "Dollar index rises on strong economic data; precious metals slide",
+    "source": "fxstreet_commodities",
+    "url": "https://www.fxstreet.com/news/1",
+    "published_at": "2026-05-25T15:00:00+00:00",
+    "classification": "bearish"
+  },
+  {
+    "headline": "Silver market overview: industrial demand steady",
+    "source": "kitco",
+    "url": "https://www.kitco.com/news/3",
+    "published_at": "2026-05-24T12:00:00+00:00",
+    "classification": "neutral"
+  }
+]

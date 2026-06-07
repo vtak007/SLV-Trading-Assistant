@@ -1,0 +1,27 @@
+# Temp files written by editors / Claude Code
+*.tmp.*
+
+# Windows artifacts
+*.lnk
+=*
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+
+# Runtime data
+data/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
