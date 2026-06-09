@@ -75,7 +75,7 @@ def _plotly_chart(bundle: ReportBundle) -> str:
         rows=4, cols=1,
         shared_xaxes=True,
         row_heights=[0.50, 0.15, 0.175, 0.175],
-        vertical_spacing=0.025,
+        vertical_spacing=0.05,
         subplot_titles=(
             f"SLV — Price & Moving Averages (last {_LOOKBACK_BARS} sessions)",
             "Volume",
@@ -98,27 +98,31 @@ def _plotly_chart(bundle: ReportBundle) -> str:
     _add_ma(fig, x, sma200, "#9b59b6", "SMA(200)")
 
     # Support / Resistance horizontal lines
-    for lvl in t.support_levels[:3]:
-        fig.add_hline(y=lvl, line=dict(color="#27ae60", dash="dot", width=1),
-                      annotation_text=f"S ${lvl:.2f}", annotation_position="right",
-                      row=1, col=1)
-    for lvl in t.resistance_levels[:3]:
-        fig.add_hline(y=lvl, line=dict(color="#c0392b", dash="dot", width=1),
-                      annotation_text=f"R ${lvl:.2f}", annotation_position="right",
-                      row=1, col=1)
+    # Re-classify at draw time: any stored level below close is support, above is resistance.
+    all_levels = list(t.support_levels[:3]) + list(t.resistance_levels[:3])
+    for lvl in all_levels:
+        if lvl < close:
+            fig.add_hline(y=lvl, line=dict(color="#27ae60", dash="dot", width=1),
+                          annotation_text=f"S ${lvl:.2f}", annotation_position="right",
+                          row=1, col=1)
+        else:
+            fig.add_hline(y=lvl, line=dict(color="#c0392b", dash="dot", width=1),
+                          annotation_text=f"R ${lvl:.2f}", annotation_position="top right",
+                          row=1, col=1)
 
     # Current price annotation
     fig.add_hline(y=close, line=dict(color="#2c3e50", dash="dash", width=1),
                   row=1, col=1)
 
-    # Action annotation
+    # Action annotation — centred above the panel title in the top margin
     action_colour = {"BUY": "#1a7a2e", "SELL": "#c0392b",
                      "HOLD": "#d68910", "NO_TRADE": "#7f8c8d"}.get(s.action, "#333")
     fig.add_annotation(
-        x=x[-1], y=close,
-        text=f"  {s.action} ({s.confidence:.0f}%)",
-        font=dict(color=action_colour, size=11, family="Arial Black"),
-        showarrow=False, xanchor="left", row=1, col=1,
+        xref="paper", yref="paper",
+        x=0.5, y=1.07,
+        text=f"{s.action} ({s.confidence:.0f}%)",
+        font=dict(color=action_colour, size=13, family="Arial Black"),
+        showarrow=False, xanchor="center",
     )
 
     # ---- Row 2: Volume ---------------------------------------------------
@@ -168,12 +172,12 @@ def _plotly_chart(bundle: ReportBundle) -> str:
 
     # ---- Global layout ---------------------------------------------------
     fig.update_layout(
-        height=620,
+        height=700,
         paper_bgcolor="#ffffff",
         plot_bgcolor="#fafbfc",
         font=dict(family="Segoe UI, Arial", size=11, color="#333"),
-        legend=dict(orientation="h", y=1.02, x=0, font=dict(size=10)),
-        margin=dict(l=60, r=80, t=50, b=40),
+        legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center", font=dict(size=10)),
+        margin=dict(l=60, r=80, t=110, b=40),
         hovermode="x unified",
         xaxis=dict(showgrid=True, gridcolor="#ecf0f1"),
         xaxis2=dict(showgrid=True, gridcolor="#ecf0f1"),
@@ -186,13 +190,34 @@ def _plotly_chart(bundle: ReportBundle) -> str:
     # RSI y-axis range
     fig.update_yaxes(range=[0, 100], row=3, col=1)
 
+    # Separator lines between subplot panels
+    domains = [
+        fig.layout.yaxis.domain,
+        fig.layout.yaxis2.domain,
+        fig.layout.yaxis3.domain,
+        fig.layout.yaxis4.domain,
+    ]
+    for i in range(len(domains) - 1):
+        sep_y = domains[i][0]  # bottom edge of upper panel, above the title in the gap
+        fig.add_shape(
+            type="line", xref="paper", yref="paper",
+            x0=0, x1=1, y0=sep_y, y1=sep_y,
+            line=dict(color="#5b7fa6", width=1.5),
+        )
+
     # Embed plotly.js inline (first=True) for full self-containment
     html = fig.to_html(full_html=False, include_plotlyjs=True, config={
         "displayModeBar": True,
         "modeBarButtonsToRemove": ["lasso2d", "select2d"],
         "toImageButtonOptions": {"format": "png", "filename": "slv_chart"},
     })
-    return html
+    return (
+        '<div style="border:3px solid #5b7fa6; border-radius:8px; '
+        'overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.07); '
+        'background:#ffffff; padding:4px;">'
+        + html
+        + "</div>"
+    )
 
 
 # ---------------------------------------------------------------------------
