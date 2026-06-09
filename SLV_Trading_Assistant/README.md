@@ -262,7 +262,7 @@ Every report contains the following sections in order:
 | 10 | **Data Quality** | Freshness status for every data source; staleness warnings with confidence impact |
 | 11 | **Final Summary** | One-paragraph narrative explanation of the signal + full disclaimer |
 
-The HTML report also includes a **4-panel interactive chart** (price with moving averages, volume, RSI, MACD) between sections 3 and 4.
+The HTML report also includes a **4-panel interactive chart** (price with moving averages, volume, RSI, MACD) between sections 3 and 4. Each panel is separated by a visual divider, support/resistance levels are colour-coded relative to the current price (green = support below, red = resistance above), and the trade signal label is displayed above the chart title.
 
 ---
 
