@@ -31,7 +31,7 @@
 | `SLV_Trading_Assistant\logs\slv_assistant.log` | Runtime log |
 | `SLV_Trading_Assistant\tests\` | Test suite (pytest) |
 | `SLV_Trading_Assistant\PROGRESS.md` | Development progress notes |
-| `SLV_Trading_Assistant\README.md` | Project readme |
+| `README.md` | Project readme (combined root + package docs) |
 | `SLV Modular System Architect & Sub-Agent Plan Implementation.md` | Implementation plan |
 | `SLV Modular System Architect & Sub-Agent.md` | Architecture design document |
 
